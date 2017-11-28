@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.erdemyilmaz.alarmex">
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher" android:supportsRtl="true"
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name">
+
+        </activity>
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/app_name"></activity>
+
+        <receiver
+            android:name=".Alarm"
+            android:process=":remote" />
+
+
+        <activity android:name=".Main3Activity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:process=":remote" android:name=".Alarm"/>
         <receiver android:name=".MyService" />
     </application>
+
 </manifest>

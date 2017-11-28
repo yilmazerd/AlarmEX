@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        int[] myDelays = {5000, 10000,15000,20000,25000};
+        int[] myDelays = {5000};
         scheduleService(myDelays);
         Log.e("TAG--","Ordering services");
 

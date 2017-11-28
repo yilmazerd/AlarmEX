@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.content.Intent;
 
 import static android.app.Service.START_STICKY;
 
@@ -23,9 +24,18 @@ public class MyService extends BroadcastReceiver
     public static String NOTIFICATION_ID = "notification-id";
     public static String NOTIFICATION = "notification";
 
+
     public void onReceive(Context context, Intent intent) {
 
         Log.e("TAG--","In the broadcast receiver");
+
+
+        Intent i = new Intent();
+        i.setClassName("com.example.erdemyilmaz.alarmex", "com.example.erdemyilmaz.alarmex.Main2Activity");
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);
+
+
 
     }
 }
