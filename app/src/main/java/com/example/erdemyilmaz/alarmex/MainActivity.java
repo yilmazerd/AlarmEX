@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<PendingIntent> PE = new ArrayList<PendingIntent>();
 
-
-
         long futureInMillis = SystemClock.elapsedRealtime();
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
