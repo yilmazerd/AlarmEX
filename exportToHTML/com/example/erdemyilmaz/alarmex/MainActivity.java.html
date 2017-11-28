@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(128,128,128); font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MainActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.example.erdemyilmaz.alarmex; 
+ 
+</span><span class="s0">import </span><span class="s1">android.app.AlarmManager; 
+</span><span class="s0">import </span><span class="s1">android.app.Notification; 
+</span><span class="s0">import </span><span class="s1">android.app.PendingIntent; 
+</span><span class="s0">import </span><span class="s1">android.content.BroadcastReceiver; 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.content.Intent; 
+</span><span class="s0">import </span><span class="s1">android.os.SystemClock; 
+</span><span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.util.Log; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.Calendar; 
+ 
+</span><span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+ 
+        setContentView(R.layout.activity_main); 
+ 
+        scheduleNotification(getNotification(</span><span class="s2">&quot;5 second delay&quot;</span><span class="s1">), </span><span class="s3">5000</span><span class="s1">); 
+        Log.e(</span><span class="s2">&quot;TAG--&quot;</span><span class="s1">,</span><span class="s2">&quot;Ordering notification 5 seconds&quot;</span><span class="s1">); 
+ 
+ 
+ 
+ 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">scheduleNotification(Notification notification, </span><span class="s0">int </span><span class="s1">delay) { 
+ 
+        Intent notificationIntent = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this</span><span class="s1">, MyService.</span><span class="s0">class</span><span class="s1">); 
+ 
+        </span><span class="s4">//Intent notificationIntent2 = new Intent(this, MyService.class);</span><span class="s1"> 
+ 
+        Log.e(</span><span class="s2">&quot;TAG--&quot;</span><span class="s1">,</span><span class="s2">&quot;Created the intent&quot;</span><span class="s1">); 
+        notificationIntent.putExtra(MyService.NOTIFICATION_ID, </span><span class="s3">1</span><span class="s1">); 
+        notificationIntent.putExtra(MyService.NOTIFICATION, notification); 
+ 
+        </span><span class="s4">//notificationIntent2.putExtra(MyService.NOTIFICATION_ID, 1);</span><span class="s1"> 
+        </span><span class="s4">//notificationIntent2.putExtra(MyService.NOTIFICATION, notification);</span><span class="s1"> 
+ 
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(</span><span class="s0">this</span><span class="s1">, </span><span class="s3">0</span><span class="s1">, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT); 
+ 
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(</span><span class="s0">this</span><span class="s1">, </span><span class="s3">1</span><span class="s1">, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT); 
+ 
+        </span><span class="s0">long </span><span class="s1">futureInMillis = SystemClock.elapsedRealtime() + delay; 
+        </span><span class="s4">//long futureInMillis2 = SystemClock.elapsedRealtime() + delay*2;</span><span class="s1"> 
+ 
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE); 
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent); 
+ 
+        </span><span class="s4">//AlarmManager alarmManager2 = (AlarmManager)getSystemService(Context.ALARM_SERVICE);</span><span class="s1"> 
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis+</span><span class="s3">5000</span><span class="s1">, pendingIntent2); 
+ 
+        Log.e(</span><span class="s2">&quot;TAG--&quot;</span><span class="s1">,</span><span class="s2">&quot;Set alarm manager&quot;</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">private </span><span class="s1">Notification getNotification(String content) { 
+        Notification.Builder builder = </span><span class="s0">new </span><span class="s1">Notification.Builder(</span><span class="s0">this</span><span class="s1">); 
+        builder.setContentTitle(</span><span class="s2">&quot;Scheduled Notification&quot;</span><span class="s1">); 
+        builder.setContentText(content); 
+        </span><span class="s4">//builder.setSmallIcon(R.drawable.ic_launcher);</span><span class="s1"> 
+        Log.e(</span><span class="s2">&quot;TAG--&quot;</span><span class="s1">,</span><span class="s2">&quot;Called getNotification&quot;</span><span class="s1">); 
+        </span><span class="s0">return </span><span class="s1">builder.build(); 
+    } 
+ 
+} 
+</span></pre>
+</body>
+</html>
