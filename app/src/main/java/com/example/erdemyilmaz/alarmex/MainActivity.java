@@ -19,33 +19,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        scheduleService(5000);
+        int[] myDelays = {5000, 10000,15000,20000,25000};
+        scheduleService(myDelays);
         Log.e("TAG--","Ordering services");
 
 
     }
 
-    private void scheduleService(int delay) {
+    private void scheduleService(int[] delays) {
 
         Intent notificationIntent = new Intent(this, MyService.class);
         Log.e("TAG--","Created the intent");
 
         ArrayList<PendingIntent> PE = new ArrayList<PendingIntent>();
-        int[] myDelays = {5000, 10000};
 
-        //PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //PE.add(pendingIntent);
-        //PendingIntent pendingIntent2 = PendingIntent.getBroadcast(this, 1, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //pendingIntent = PendingIntent.getBroadcast(this, 1, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //PE.add(pendingIntent);
 
-        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+
+        long futureInMillis = SystemClock.elapsedRealtime();
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        for (int i=0;i<2;i++) {
+        for (int i=0;i<delays.length;i++) {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             PE.add(pendingIntent);
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis + myDelays[i], PE.get(i));
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis + delays[i], PE.get(i));
         }
 
         Log.e("TAG--","Set alarm manager");
